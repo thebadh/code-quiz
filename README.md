@@ -2,10 +2,10 @@
 
 There are 4 tasks to complete this coding challenge:
 
-1. Write a function that passes the tests written in test/create.js
-1. Write a function that passes the tests written in test/post.js
-1. Write a test for the code written in src/read.js
-1. Write a human-readable description of the code in src/
+1. Write a function that passes the tests written in test/client/index.js
+1. Write a function that passes the tests written in test/server/index.js
+1. Write tests for `server.changeUserName()`
+1. Write documentation for `server.shiftUserNames()`
 
 # Basics
 
@@ -24,23 +24,23 @@ There are 4 tasks to complete this coding challenge:
 
 test/client/index.js contains a functional test with several expectations.
 It relies on code that has yet to be written in the function `post` in src/client/index.js.
-Your job is to write code within that function to pass the tests.
+Write code within that function to pass the tests.
 
 ## Task 2 - Server Side Mongo Query
 
 test/server/index.js contains a functional test with several expectations.
 It relies on code that has yet to be written in the function `create` in src/server/index.js.
-Your job is to write code within that function to pass the tests.
+Write code within that function to pass the tests.
 
 ## Task 3 - Server Side Testing
 
 src/server/index.js contains a function `changeUserName`.
-Write code in test/server/index.js that test and demonstrate the functionality and basic edge cases
+Write code in test/server/index.js that tests and demonstrates the functionality and basic edge cases
 of `changeUserName`.
 
-## Task 4 - FP analysis
+## Task 4 - FP Documentation
 
 src/server/index.js contains a function `shiftUserNames`.
-This function uses the function reduce from the library ramda: http://ramdajs.com/0.19.1/docs/#reduce.
+This function uses the function `reduce` from the library ramda: http://ramdajs.com/0.19.1/docs/#reduce.
 Add a file Documentation.md and explain using well-formatted markdown, in readable, plain english
 what this function does and how it achieves the result.
