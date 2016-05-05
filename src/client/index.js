@@ -23,6 +23,14 @@ window.global = ( function createGlobal() {
                 1. make a post request to '/post' with this data as the body:
                 2. invoke the callback with the json returned by the server
             */
+            var values = {};
+            $('#createUser').find('input:not([type="submit"])').each(function () {
+                values[this.id] = this.value;
+            });
+
+            $.post('/post', JSON.stringify(values), function (data) {
+                callback(data);
+            });
         }
     };
 }());
