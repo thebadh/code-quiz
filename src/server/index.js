@@ -28,7 +28,7 @@ module.exports.connect = function connect() {
     });
 };
 
-module.exports.create = function create( properties ) {
+module.exports.create = function create(properties) {
     /**
         TASK 2
 
@@ -39,6 +39,14 @@ module.exports.create = function create( properties ) {
             Add an _id field to the properties which is a universal unique identifier.
         2. return a promise that resolves with the newly created document
     */
+    const user = new User({
+        _id: mongoose.Types.ObjectId(),
+        email: properties.email,
+        username: properties.username,
+        firstName: properties.firstName,
+        lastName: properties.lastName,
+    });
+    return user.save();
 };
 
 // accepts an id of a document to update and a newName to change it to
@@ -46,7 +54,7 @@ module.exports.create = function create( properties ) {
 module.exports.changeUserName = function changeUserName( id, newName ) {
     if ( typeof id !== 'string' ) return Promise.reject( new Error( 'id required' ));
     if ( typeof newName !== 'string' ) return Promise.reject( new Error( 'newName required' ));
-    return User.findOneAndUpdate({ _id: id }, { username: newName }).exec();
+    return User.findOneAndUpdate({ _id: id }, {$set: { username: newName }}, {new: true}).exec();
 };
 
 module.exports.shiftUserNames = function shiftUserNames( ids ) {
