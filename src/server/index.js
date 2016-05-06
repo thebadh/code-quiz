@@ -54,7 +54,7 @@ module.exports.create = function create(properties) {
 module.exports.changeUserName = function changeUserName( id, newName ) {
     if ( typeof id !== 'string' ) return Promise.reject( new Error( 'id required' ));
     if ( typeof newName !== 'string' ) return Promise.reject( new Error( 'newName required' ));
-    return User.findOneAndUpdate({ _id: id }, {$set: { username: newName }}, {new: true}).exec();
+    return User.findOneAndUpdate({ _id: id }, { username: newName }).exec();
 };
 
 module.exports.shiftUserNames = function shiftUserNames( ids ) {

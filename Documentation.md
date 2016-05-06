@@ -1,29 +1,34 @@
-# R.reduce(*Function*, *Number*, *Array*)
+# shiftUserNames(*Array[String]*)
 
-*Consolidates an array into a single returned item by means of a specified function.*
+*Renames every username within a list of users to the original username of the previous user in the list*
 
-`reduce` will iterate over each member of a given array, executing a given function.
-With each iteration, the given function's output will be carried over to the following iteration.  Thus, an overall value accumulates with each execution of the given function.  Ultimately, the output of the given function over the final member of the given array yields the result returned by `reduce`.
+Ramda's `R.reduce` will iterate over each member of a given array of ID strings, executing the `changeUserName`
+function on each ID.  Given the initial accumulator value of "Matt", `changeUserName` modifies the username of 
+the first user object referenced in the array of IDs.  Only the final username string is returned.
 
-    var array = [1, 2, 3],
-        input = 5,
-        multiply = (a, b) => a * b;
-        
-    R.reduce(multiply, input, array);
+### Dependent Behavior
+The behavior of the `shiftUserNames` function is dependent on the return behavior of `changeUserName`.
 
-In example, the above code, with an initial input of 5 produces a mathematical output equivalent to 30, as described in the table below.
+If `changeUserName` returns the *modified* user object, then "Matt" will continuously be passed through the accumlator to the next iteration, resulting in every user referenced in the IDs array being given the username "Matt".
 
-| Iteration |  Array Value | Mathematical Operation | Function Output |
-|:---------:|:------------:|:----------------------:|:---------------:|
-|     1     | array[0] = 1 |          1 * 5         |        5        |
-|     2     | array[1] = 2 |          2 * 5         |        10       |
-|     3     | array[2] = 3 |         3 * 10         |        30       |
+If `changeUserName` returns the *original* user object, then only the first user object referenced in the IDs 
+array will become "Matt".  After each iteration, the *original* username will be passed through the `reduce` 
+accumulator to the next user object referenced in the array.  Thus, within the given array of user IDs, each 
+user object's username effectively shifts to the "right" by one.
 
+    /* Modified user object is returned: */
+    function changeUserName( id, newName ) {
+        ...
+        return User.findOneAndUpdate({ _id: id }, {$set: { username: newName }}, { new: true }).exec();
+    };
+    
+    /* Original user object is returned: */
+    function changeUserName( id, newName ) {
+        ...
+        return User.findOneAndUpdate({ _id: id }, {$set: { username: newName }}, { new: false }).exec();
+    };
+    
 
-## Notes:
-
-* Empty or undefined indices will *not* be skipped
-
-`accepts` **Array** `returns` **Number**
-----------------------------------------
-*see [Ramda docs](http://ramdajs.com/0.19.1/docs/#reduce) for more information*
+`accepts` **Array[String]** `returns` **String**
+------------------------------------------------
+*see [Ramda docs](http://ramdajs.com/0.19.1/docs/#reduce) for more information on `R.reduce`*
