@@ -24,13 +24,11 @@ window.global = ( function createGlobal() {
                 2. invoke the callback with the json returned by the server
             */
             var values = {};
-            $('#createUser').find('input:not([type="submit"])').each(function () {
+            $( '#createUser' ).find( 'input:not([type="submit"])' ).each( function addValues() {
                 values[this.id] = this.value;
             });
 
-            $.post('/post', JSON.stringify(values), function (data) {
-                callback(data);
-            });
+            $.post( '/post', JSON.stringify( values ), callback );
         }
     };
 }());

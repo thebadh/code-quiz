@@ -28,7 +28,7 @@ module.exports.connect = function connect() {
     });
 };
 
-module.exports.create = function create(properties) {
+module.exports.create = function create( properties ) {
     /**
         TASK 2
 
@@ -40,7 +40,7 @@ module.exports.create = function create(properties) {
         2. return a promise that resolves with the newly created document
     */
     const user = new User({
-        _id: mongoose.Types.ObjectId(),
+        _id: new mongoose.Types.ObjectId(),
         email: properties.email,
         username: properties.username,
         firstName: properties.firstName,

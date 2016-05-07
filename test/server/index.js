@@ -54,24 +54,22 @@ describe( 'changeUserName', function() {
         return server.User.remove({}).exec();
     });
 
-    it('should reject IDs that are not in string format', function () {
-       return expect(server.changeUserName( 0, 'newName' )).to.be.rejectedWith( 'id required' );
+    it( 'should reject IDs that are not in string format', function() {
+        return expect( server.changeUserName( 0, 'newName' )).to.be.rejectedWith( 'id required' );
     });
 
-    it('should reject new names that are not in string format', function () {
-       return expect(server.changeUserName( 'id', 0 )).to.be.rejectedWith( 'newName required' );
+    it( 'should reject new names that are not in string format', function() {
+        return expect( server.changeUserName( 'id', 0 )).to.be.rejectedWith( 'newName required' );
     });
 
-    it('should return original user object when IDs and new names are in string format', function () {
+    it( 'should return original user object when IDs and new names are in string format', function() {
         return server.create({
             username: 'JohnDoe12345',
             firstName: 'John',
             lastName: 'Doe',
             email: 'john@doe.com',
         })
-        .then( res => {
-            return server.changeUserName( res._id, 'JohnDoe12345' );
-        })
+        .then( res => server.changeUserName( res._id, 'JohnDoe12345' ))
         .then( res => {
             expect( res.email ).to.equal( 'john@doe.com' );
             expect( res.firstName ).to.equal( 'John' );
@@ -80,7 +78,7 @@ describe( 'changeUserName', function() {
         });
     });
 
-    it('should update username matching given user ID to new username', function () {
+    it( 'should update username matching given user ID to new username', function() {
         return server.create({
             username: 'JohnDoe12345',
             firstName: 'John',
